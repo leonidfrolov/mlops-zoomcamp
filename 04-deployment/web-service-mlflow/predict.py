@@ -4,13 +4,14 @@ import pickle
 import mlflow
 from flask import Flask, request, jsonify
 
-
+MLFLOW_TRACKING_URI = 'http://127.0.0.1:5000'
 RUN_ID = os.getenv('RUN_ID')
-
-logged_model = f's3://mlflow-models-alexey/1/{RUN_ID}/artifacts/model'
-# logged_model = f'runs:/{RUN_ID}/model'
-model = mlflow.pyfunc.load_model(logged_model)
-
+RUN_ID = 'b4d3bca8aa8e46a6b8257fe4541b1136'
+#logged_model = f's3://mlflow-models-alexey/1/{RUN_ID}/artifacts/model'
+#logged_model = f'runs:/{RUN_ID}/model'
+#model = mlflow.pyfunc.load_model(logged_model)
+with open('dict_vectorizer.bin', 'rb') as f_in:
+    model = pickle.load(f_in)
 
 def prepare_features(ride):
     features = {}
